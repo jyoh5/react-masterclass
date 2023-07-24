@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import { fetchCoins } from "../api";
+import {Helmet} from "react-helmet";
+import {ICoin} from "../interfaces/Coin.interface";
 
 const Container = styled.div`
     padding: 0px 20px;
@@ -55,21 +56,16 @@ const Img = styled.img`
     margin-right: 10px;
 `;
 
-interface ICoin {
-    id: string,
-    name: string,
-    symbol: string,
-    rank: number,
-    is_new: boolean,
-    is_active: boolean,
-    type: string,
-}
+
 
 
 function Coins() {
     const {isLoading, data} = useQuery<ICoin[]>("allCoins", fetchCoins); // 
     return (
         <Container>
+            <Helmet>
+                <title>Main</title>
+            </Helmet>
             <Header>
                 <Title>Main</Title>
             </Header>

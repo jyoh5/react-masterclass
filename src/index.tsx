@@ -6,7 +6,14 @@ import App from './App';
 import { theme } from './theme'
 
 // Create a client
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // 5 mins
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
