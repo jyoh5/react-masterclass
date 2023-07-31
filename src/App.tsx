@@ -1,11 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import Router from "./Router";
-import {ReactQueryDevtools} from "react-query/devtools";
-import { ThemeProvider } from 'styled-components';
-import { darkTheme, lightTheme } from './theme'
-import { useState } from "react";
-import { useRecoilValue } from "recoil";
-import { isDartAtom } from "./atoms";
+import ToDoList from "./ToDoList";
 
 // 전체에(global) 스타일 적용
 // head에 주입함
@@ -75,14 +69,10 @@ const GlobalStyle = createGlobalStyle`
 
 // <></> => fragment
 function App() {
-    const isDark = useRecoilValue(isDartAtom);
     return (
         <>
-            <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-                <GlobalStyle></GlobalStyle>
-                <Router></Router>
-                <ReactQueryDevtools initialIsOpen={true}></ReactQueryDevtools>
-            </ThemeProvider>
+            <GlobalStyle />
+            <ToDoList />
         </>
     );
 }
