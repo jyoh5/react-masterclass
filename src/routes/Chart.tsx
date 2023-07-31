@@ -2,6 +2,8 @@ import { useQuery } from "react-query";
 import { fetchCoinHistory } from "../api";
 import ApexChart from "react-apexcharts";
 import { styled } from "styled-components";
+import { useRecoilValue } from "recoil";
+import { isDartAtom } from "../atoms";
 
 const TextCenter = styled.div`
     text-align: center;
@@ -26,6 +28,7 @@ interface IHistoricalError {
 
 
 function Chart({coinId}: ChartProps) {
+    const isDark = useRecoilValue(isDartAtom);
     const {isLoading, data} = useQuery<IHistorical[]>(["ohlcv", coinId], () => fetchCoinHistory(coinId))//), {refetchInterval: 10000})
     if (data && !data.length){
       return <TextCenter>Price data not found.</TextCenter>
@@ -44,7 +47,7 @@ function Chart({coinId}: ChartProps) {
             series={[{ data: mappedOhlcvData }] as unknown as number[]} 
             options={{
               theme: {
-                mode: "dark",
+                mode: isDark ? "dark" : "light",
               },
               chart: {
                 height: 300,
